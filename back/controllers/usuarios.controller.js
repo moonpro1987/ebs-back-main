@@ -1,12 +1,12 @@
-const Usuario = require('../models/usuarios.model');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
+const Usuario = require("../models/usuarios.model");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
 exports.login = function (req, res, next) {
   let hashedpass = crypto
-    .createHash('sha512')
+    .createHash("sha512")
     .update(req.body.pass)
-    .digest('hex');
+    .digest("hex");
 
   Usuario.findOne(
     { usuario: req.body.usuario, pass: hashedpass },
@@ -21,8 +21,8 @@ exports.login = function (req, res, next) {
             id: usuario._id,
             usuario: usuario.usuario,
           },
-          '__recret__',
-          { expiresIn: '12h' }
+          "__recret__",
+          { expiresIn: "12h" }
         );
       }
       res.json(response);

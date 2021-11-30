@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
 
-const host = "localhost";
-const port = "27017";
-const db = "hr";
+const host = 'localhost';
+const port = '27017';
+const db = 'hr';
+
+const remoteHost = 'cluster0.prdt0.mongodb.net';
+const remoteUser = 'moonpro1987';
+const remotePass = 'admin';
+const remoteDb = 'hr';
+
+
 
 exports.mongoConnect = () => {
-    const mongoStringConnection = `mongodb://${host}:${port}/${db}`;
+    //const mongoStringConnection = `mongodb://${host}:${port}/${db}`;
+    const mongoStringConnection = `mongodb+srv://${remoteUser}:${remotePass}@${remoteHost}/${remoteDb}?retryWrites=true&w=majority`;
     mongoose.connect(mongoStringConnection);
     mongoose.Promise = global.Promise;
     const dbConnection = mongoose.connection;
